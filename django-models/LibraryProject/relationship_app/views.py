@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, logout
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import login
 from .models import Book, Library
 
 # Function-based view to list all books
@@ -23,14 +22,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Log user in after registration
-            return redirect('list_books')  # Redirect after successful registration
+            return redirect('list_books')
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
-
-# Login and Logout views using Django's built-in views
-class CustomLoginView(LoginView):
-    template_name = 'relationship_app/login.html'
-
-class CustomLogoutView(LogoutView):
-    template_name = 'relationship_app/logout.html'
