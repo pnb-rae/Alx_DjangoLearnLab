@@ -54,7 +54,7 @@ class UserProfile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        # Default role can be 'Member'; adjust if needed
+        # Default role can be 'Member'; adjust as needed
         UserProfile.objects.create(user=instance, role='Member')
 
 @receiver(post_save, sender=User)
